@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robert F. Arao, PhD, MPH — Biostatistician &amp; Data Scientist</title>
+<meta name="description" content="Biostatistician and data scientist bridging academia and industry — clinical trial biostatistics, signal detection, and applied ML.">
+<meta property="og:title" content="Robert F. Arao, PhD, MPH — Biostatistician &amp; Data Scientist">
+<meta property="og:description" content="Biostatistician and data scientist bridging academia and industry — clinical trial biostatistics, signal detection, and applied ML.">
+<meta property="og:image" content="https://robarao.github.io/headshot.jpg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://robarao.github.io/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Robert F. Arao, PhD, MPH — Biostatistician &amp; Data Scientist">
+<meta name="twitter:description" content="Biostatistician and data scientist bridging academia and industry.">
+<meta name="twitter:image" content="https://robarao.github.io/headshot.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c3a5e;
+    --ink-soft:#254a72;
+    --paper:#f7f5f0;
+    --paper-dim:#b7c4d6;
+    --line: rgba(247,245,240,0.14);
+    --line-strong: rgba(247,245,240,0.28);
+    --academic: #8fae9a;
+    --industry: #9aa8c9;
+    --bridge: #c99a5c;
+    --accent: var(--bridge);
+    --accent-dim: rgba(201,154,92,0.3);
+    --font-display: "Fraunces", serif;
+    --font-body: "Inter", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;} }
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  a:focus-visible, button:focus-visible, .toggle:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .wrap{max-width:820px; margin:0 auto; padding:0 28px;}
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position:sticky; top:0; z-index:20;
+    background:rgba(18,21,28,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 0;
+  }
+  .mark{
+    font-family:var(--font-mono); font-size:13px; letter-spacing:0.08em;
+    color:var(--paper-dim);
+  }
+  nav.links{display:flex; gap:22px; font-size:14px;}
+  nav.links a{text-decoration:none; color:var(--paper-dim); transition:color .2s;}
+  nav.links a:hover{color:var(--paper);}
+
+  @media (max-width:640px){ nav.links{display:none;} }
+
+  /* ---------- MODE TOGGLE ---------- */
+  .toggle{
+    display:inline-flex; align-items:center; gap:0;
+    font-family:var(--font-mono); font-size:12px;
+    border:1px solid var(--line-strong); border-radius:999px;
+    padding:3px; background:var(--ink-soft); cursor:pointer;
+    position:relative;
+  }
+  .toggle span{
+    padding:6px 14px; border-radius:999px; color:var(--paper-dim);
+    transition:color .25s;
+    position:relative; z-index:1;
+  }
+  .toggle .pill{
+    position:absolute; top:3px; bottom:3px; left:3px;
+    width:calc(50% - 3px);
+    background:var(--accent);
+    border-radius:999px;
+    transition:transform .28s cubic-bezier(.65,0,.35,1), background .3s;
+  }
+  body[data-mode="industry"] .toggle .pill{ transform:translateX(100%); }
+  body[data-mode="academic"] .toggle span[data-for="academic"],
+  body[data-mode="industry"] .toggle span[data-for="industry"]{ color:var(--ink); font-weight:500; }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:88px 0 64px; border-bottom:1px solid var(--line); }
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 18px;
+    transition:color .3s;
+  }
+  h1{
+    font-family:var(--font-display); font-weight:500;
+    font-size:clamp(38px,6vw,58px); line-height:1.05; margin:0 0 20px;
+    letter-spacing:-0.01em;
+  }
+  h1 .credentials{
+    font-size:0.42em; font-weight:400; color:var(--paper-dim);
+    letter-spacing:0.02em; margin-left:6px;
+  }
+  .tagline{ font-size:18px; color:var(--paper-dim); max-width:56ch; margin:0 0 28px; }
+  .hero-links{ display:flex; flex-wrap:wrap; gap:10px; }
+  .hero-inner{ display:flex; align-items:center; gap:40px; }
+  .hero-text{ flex:1; min-width:0; }
+  .headshot{
+    flex-shrink:0; width:148px; height:148px; border-radius:50%;
+    background:var(--ink-soft); border:2px solid var(--accent-dim);
+    background-size:cover; background-position:center;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:11px; color:var(--paper-dim); text-align:center; padding:10px;
+  }
+  @media (max-width:640px){
+    .hero-inner{ flex-direction:column-reverse; text-align:center; gap:24px; }
+    .hero-links{ justify-content:center; }
+  }
+  .hero-links a{
+    font-family:var(--font-mono); font-size:12.5px; text-decoration:none;
+    border:1px solid var(--line-strong); padding:8px 14px; border-radius:6px;
+    color:var(--paper-dim); transition:all .2s;
+  }
+  .hero-links a:hover{ border-color:var(--accent); color:var(--paper); }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding:60px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .alt{ background:var(--ink-soft); }
+  .deep{ background:#1a2f4d; }
+  .highlight{
+    background:linear-gradient(135deg, #c99a5c, #ddbb8a);
+    border-bottom:none;
+  }
+  .highlight, .highlight h2{ color:var(--ink); }
+  .highlight .s-note{ color:rgba(37,67,110,0.65); }
+  .highlight .cv-box{ border-color:rgba(37,67,110,0.3); background:rgba(255,255,255,0.3); }
+  .highlight .cv-box p{ color:rgba(37,67,110,0.85); }
+  .highlight .btn{ background:var(--ink); color:var(--paper); }
+  .s-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:32px; gap:16px; flex-wrap:wrap;}
+  h2{
+    font-family:var(--font-display); font-weight:500; font-size:26px; margin:0;
+  }
+  .s-note{ font-family:var(--font-mono); font-size:12px; color:var(--paper-dim); }
+
+  p.lead{ color:var(--paper-dim); max-width:65ch; }
+
+  /* mode-tagged pills */
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .tag{
+    font-family:var(--font-mono); font-size:11px; padding:4px 10px; border-radius:5px;
+    border:1px solid var(--line-strong); color:var(--paper-dim); transition:opacity .3s, border-color .3s;
+  }
+  .tag[data-mode="academic"]{ border-color:var(--academic); }
+  .tag[data-mode="industry"]{ border-color:var(--industry); }
+  body[data-mode="academic"] .tag[data-mode="industry"]{ opacity:0.35; }
+  body[data-mode="industry"] .tag[data-mode="academic"]{ opacity:0.35; }
+
+  /* ---------- PUBLICATIONS ---------- */
+  .pub{
+    display:grid; grid-template-columns:32px 1fr; gap:14px;
+    padding:18px 0; border-top:1px solid var(--line);
+  }
+  .pub:first-of-type{ border-top:none; }
+  .pub-num{ font-family:var(--font-mono); color:var(--accent); font-size:13px; }
+  .pub-title{ font-weight:600; margin:0 0 4px; font-size:15.5px; }
+  .pub-meta{ font-size:13.5px; color:var(--paper-dim); margin:0 0 8px; }
+  .pub-links{ display:flex; gap:14px; }
+  .pub-links a{ font-family:var(--font-mono); font-size:12px; text-decoration:underline; text-underline-offset:3px; color:var(--paper-dim); }
+  .pub-links a:hover{ color:var(--accent); }
+
+  /* ---------- PROJECTS ---------- */
+  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:640px){ .grid{ grid-template-columns:1fr; } }
+  .card{
+    border:1px solid var(--line-strong); border-radius:10px; padding:20px;
+    background:var(--ink-soft);
+  }
+  .card-img, .card-vid{
+    width:100%; height:160px; margin:-20px -20px 16px; width:calc(100% + 40px);
+    background-size:cover; background-position:center; background-color:var(--ink);
+    border-radius:10px 10px 0 0; border-bottom:1px solid var(--line-strong);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:11px; color:var(--paper-dim); text-align:center; padding:0 20px;
+    object-fit:cover;
+  }
+  .card h3{ font-family:var(--font-body); font-size:16px; font-weight:600; margin:0 0 8px; }
+  video.card-vid{ padding:0; }
+  .card p{ font-size:13.5px; color:var(--paper-dim); margin:0 0 14px; }
+  .card .pub-links{ margin-top:4px; }
+
+  /* ---------- CV / CONTACT ---------- */
+  .cv-box{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:18px;
+    border:1px dashed var(--line-strong); border-radius:10px; padding:24px;
+  }
+  .btn{
+    font-family:var(--font-mono); font-size:13px; text-decoration:none;
+    background:var(--accent); color:var(--ink); padding:11px 20px; border-radius:6px;
+    font-weight:500; transition:transform .15s;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+
+  footer{ padding:48px 0 64px; }
+  .contact-row{ display:flex; flex-wrap:wrap; gap:22px; margin-top:16px; }
+  .contact-row a{ text-decoration:none; color:var(--paper-dim); font-size:14px; border-bottom:1px solid var(--line-strong); padding-bottom:2px;}
+  .contact-row a:hover{ color:var(--paper); border-color:var(--accent); }
+  .fine{ font-family:var(--font-mono); font-size:11px; color:var(--paper-dim); margin-top:36px; opacity:0.6; }
+
+  ::selection{ background:var(--accent-dim); }
+</style>
+</head>
+<body data-mode="academic">
+
+<header class="site">
+  <div class="wrap nav-row">
+    <span class="mark">R. ARAO</span>
+    <nav class="links">
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#talks">Talks</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#dev-awards">Awards</a>
+      <a href="#other-writing">Other Writing</a>
+      <a href="#code">Code</a>
+      <a href="#cv">CV</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="toggle" id="modeToggle" role="button" tabindex="0" aria-label="Toggle between academic and industry view">
+      <div class="pill"></div>
+      <span data-for="academic">researcher</span>
+      <span data-for="industry">engineer</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow" data-academic="PhD Candidate (defending September 2026), MPH · Department of Information Science, University of North Texas" data-industry="Associate Director, Daiichi Sankyo US · PhD Candidate (defending September 2026), MPH">PhD Candidate (defending September 2026), MPH · Department of Information Science, University of North Texas</p>
+      <h1>Robert F. Arao<span class="credentials">PhD Cand., MPH</span></h1>
+      <p class="tagline"
+         data-academic="I develop mathematical frameworks for signal-to-noise detection in high-dimensional, multi-source clinical data — applied to patient retention and workflow optimization across the clinical research lifecycle."
+         data-industry="I build statistical frameworks that integrate multiple data sources and turn noisy, high-dimensional clinical data into decisions — from biomarker prediction to patient retention modeling across Phase I–III trials.">
+        I develop mathematical frameworks for signal-to-noise detection in high-dimensional, multi-source clinical data — applied to patient retention and workflow optimization across the clinical research lifecycle.
+      </p>
+      <div class="hero-links">
+        <a href="#cv">Download CV</a>
+        <a href="mailto:arao2012@alumni.ohsu.edu">Email</a>
+        <a href="https://scholar.google.com/citations?hl=en&amp;user=I-EKBqkAAAAJ">Google Scholar</a>
+        <a href="https://orcid.org/0000-0002-4935-338X">ORCID</a>
+        <a href="https://github.com/robarao">GitHub</a>
+        <a href="https://public.tableau.com/app/profile/robert.arao5352/vizzes">Tableau</a>
+        <a href="https://www.linkedin.com/in/robert-arao">LinkedIn</a>
+      </div>
+    </div>
+    <div class="headshot" style="background-image:url('headshot.jpg');"></div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="s-head">
+      <h2>Research</h2>
+      <span class="s-note">PhD Candidate, MPH</span>
+    </div>
+    <p class="lead">
+      My dissertation develops a mathematical framework for detecting signal amid noise in high-dimensional
+      clinical data — one that allows for the integration of multiple sources of data — with direct applications
+      to patient retention and workflow optimization across the spectrum of early- to late-stage clinical research.
+      It builds on 15+ years working the statistical side of clinical trials, from Phase I–III biostatistics at
+      Daiichi Sankyo and Fred Hutch to a PhD Fellowship at the FDA studying biosimilar interchangeability — the
+      throughline is turning messy, high-dimensional data into decisions that hold up under regulatory
+      and scientific scrutiny.
+    </p>
+    <div class="tags">
+      <span class="tag" data-mode="academic">signal detection</span>
+      <span class="tag" data-mode="academic">Bayesian inference</span>
+      <span class="tag" data-mode="industry">CDISC (SDTM/ADaM)</span>
+      <span class="tag" data-mode="industry">Phase I–III trials</span>
+      <span class="tag" data-mode="academic">peer review</span>
+      <span class="tag" data-mode="industry">R Shiny / Python</span>
+    </div>
+  </div>
+</section>
+
+<section id="publications" class="alt">
+  <div class="wrap">
+    <div class="s-head">
+      <h2>Publications</h2>
+      <span class="s-note">16 peer-reviewed articles</span>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">01</span>
+      <div>
+        <p class="pub-title">Bone changes with long-acting cabotegravir or tenofovir disoproxil fumarate/emtricitabine for HIV prevention in cisgender men and transgender women: HPTN 083</p>
+        <p class="pub-meta">Brown, T. T., <strong>Arao, R.</strong>, Warsi, M., et al. — <em>Clinical Infectious Diseases, ciaf221 (2025)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1093/cid/ciaf221" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">02</span>
+      <div>
+        <p class="pub-title">Assessing the impact of different depression treatment success metrics on organizational performance</p>
+        <p class="pub-meta">Carlo, A., Chan, K., <strong>Arao, R. F.</strong>, et al. — <em>Psychiatric Services, 72(7), 830–834 (2021)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1176/appi.ps.202000364" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">03</span>
+      <div>
+        <p class="pub-title">Outcomes of a health informatics technology-supported behavioral activation training for care managers in a collaborative care program</p>
+        <p class="pub-meta">Bauer, A., Jakupcak, M., Hawrilenko, M., Bechtel, J., <strong>Arao, R.</strong>, & Fortney, J. — <em>Families, Systems, & Health, 39(1), 89–100 (2021)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1037/fsh0000523" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">04</span>
+      <div>
+        <p class="pub-title">Variation in the effectiveness of collaborative care (CoCM) for depression: Does it matter where you get your care?</p>
+        <p class="pub-meta">Unutzer, J., Carlo, A. D., <strong>Arao, R. F.</strong>, et al. — <em>Health Affairs, 39(11), 1943–1950 (2020)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1377/hlthaff.2019.01714" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">05</span>
+      <div>
+        <p class="pub-title">Implementing collaborative care to reduce depression for rural Native American/Alaska Native people</p>
+        <p class="pub-meta">Bowen, D. J., Powers, D. M., Russo, J., <strong>Arao, R.</strong>, et al. — <em>BMC Health Services Research, 20(1), 34 (2020)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1186/s12913-019-4875-6" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">06</span>
+      <div>
+        <p class="pub-title">Performance of screening ultrasonography as an adjunct to screening mammography in women across the spectrum of breast cancer risk</p>
+        <p class="pub-meta">Lee, J. M., <strong>Arao, R. F.</strong>, Sprague, B. L., et al. — <em>JAMA Internal Medicine, 179(5), 658–667 (2019)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1001/jamainternmed.2018.8372" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">07</span>
+      <div>
+        <p class="pub-title">National performance benchmarks for modern diagnostic digital mammography</p>
+        <p class="pub-meta">Sprague, B. L., <strong>Arao, R. F.</strong>, Miglioretti, D. L., et al. — <em>Radiology, 283(1), 59–69 (2017)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1148/radiol.2017161519" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">08</span>
+      <div>
+        <p class="pub-title">National performance benchmarks for modern screening digital mammography</p>
+        <p class="pub-meta">Lehman, C. D., <strong>Arao, R. F.</strong>, Sprague, B. L., et al. — <em>Radiology, 283(1), 49–58 (2017)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1148/radiol.2016161174" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">09</span>
+      <div>
+        <p class="pub-title">Association between air pollution and mammographic breast density in the Breast Cancer Surveillance Consortium</p>
+        <p class="pub-meta">Yaghjyan, L., <strong>Arao, R. F.</strong>, Brokamp, C., et al. — <em>Breast Cancer Research, 19(1), 36 (2017)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1186/s13058-017-0828-3" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">10</span>
+      <div>
+        <p class="pub-title">Emerging trends in family history of breast cancer and associated risk</p>
+        <p class="pub-meta">Oyewale, O. S., <strong>Arao, R. F.</strong>, Miglioretti, D., et al. — <em>Cancer Epidemiology, Biomarkers & Prevention, 26(12), 1753–1760 (2017)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1158/1055-9965.EPI-17-0531" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">11</span>
+      <div>
+        <p class="pub-title">Change in breast cancer screening intervals since the 2009 USPSTF Guideline</p>
+        <p class="pub-meta">Wernli, K. J., <strong>Arao, R. F.</strong>, Hubbard, R. A., et al. — <em>Journal of Women's Health, 26(8), 820–827 (2017)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1089/jwh.2016.6076" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">12</span>
+      <div>
+        <p class="pub-title">Influenza vaccination of pregnant women: Attitudes and behaviors of physician prenatal care providers</p>
+        <p class="pub-meta"><strong>Arao, R. F.</strong>, Rosenberg, K. D., McWeeney, S., & Hedberg, K. — <em>Maternal and Child Health Journal, 19(4), 783–789 (2015) — first author</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1007/s10995-014-1569-x" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">13</span>
+      <div>
+        <p class="pub-title">Changes in antimicrobial prescribing patterns following implementation of the Oregon Antimicrobial Stewardship Collaborative (OASC)</p>
+        <p class="pub-meta">Strasfeld, L., Parkerton, M., <strong>Arao, R. F.</strong>, et al. — <em>Open Forum Infectious Diseases, 1(1), S95–S96 (2014)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1093/ofid/ofu052.84" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">14</span>
+      <div>
+        <p class="pub-title">The Oregon Antimicrobial Stewardship Collaborative (OASIS): Statewide effectiveness on re-survey</p>
+        <p class="pub-meta">Mohammadi, J., Strasfeld, L., Parkerton, M., Beldavs, Z. G., <strong>Arao, R. F.</strong>, & Forrest, G. — <em>Open Forum Infectious Diseases, 1(suppl_1), S95–S96 (2014)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1093/ofid/ofu052.83" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">15</span>
+      <div>
+        <p class="pub-title">Establishment of a statewide network for carbapenem-resistant Enterobacteriaceae prevention in a low incidence region</p>
+        <p class="pub-meta">Pfeiffer, C. D., Cunningham, M. C., Poissant, T., et al., <strong>Arao, R. F.</strong>, & Beldavs, Z. G. — <em>Infection Control & Hospital Epidemiology, 35(4), 356–361 (2014)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1086/675605" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">16</span>
+      <div>
+        <p class="pub-title">Circumferential or sectored beam arrangements for stereotactic body radiation therapy (SBRT) of primary lung tumors: Effect on target and normal-structure dose-volume metrics</p>
+        <p class="pub-meta">Rosenberg, M. W., Kato, M. K., Carson, K. M., et al., <strong>Arao, R. F.</strong>, et al. — <em>Medical Dosimetry, 38(4), 407–412 (2013)</em></p>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1016/j.meddos.2013.05.002" target="_blank" rel="noopener">DOI</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="s-note" style="margin-top:28px; margin-bottom:14px;">Under review</p>
+
+    <div class="pub">
+      <span class="pub-num">17</span>
+      <div>
+        <p class="pub-title">Information Signaling and Service Process Stability: A Structural Framework for Mitigating Latent Churn</p>
+        <p class="pub-meta"><strong>Arao, R. F.</strong>, Prybutok, V., Mpofu, E., & O'Connor — <em>submitted to Management Science</em></p>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">18</span>
+      <div>
+        <p class="pub-title">Reconnecting Satisfaction and Knowledge to Predict Participant Retention: A PLS-SEM Validation of the "Procedural Assent" Framework</p>
+        <p class="pub-meta"><strong>Arao, R. F.</strong>, & Prybutok, V. — <em>submitted to Journal of Clinical Epidemiology</em></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="talks">
+  <div class="wrap">
+    <div class="s-head">
+      <h2>Talks &amp; Presentations</h2>
+      <span class="s-note">invited talks, conferences, posters</span>
+    </div>
+    <div class="pub">
+      <span class="pub-num">01</span>
+      <div>
+        <p class="pub-title">Answering the Call for Antimicrobial Stewardship in Oregon</p>
+        <p class="pub-meta">Arao RF, Forrest GM, Beldavs A, Ellingson K, Mohammadi J, Thomas A — <em>Infectious Disease (ID) Week 2013, San Francisco, CA — October 4, 2013</em></p>
+      </div>
+    </div>
+    <div class="pub">
+      <span class="pub-num">02</span>
+      <div>
+        <p class="pub-title">Physician Barriers to Recommending Flu Vaccine to Healthy Pregnant Women</p>
+        <p class="pub-meta">Oregon Public Health Association (OPHA) Annual Conference — <em>Corvallis, OR — October 8, 2012</em></p>
+      </div>
+    </div>
+    <div class="pub">
+      <span class="pub-num">03</span>
+      <div>
+        <p class="pub-title">How Effective Is the PediaVision S09 in Detecting Amblyopic Risk Factors in Children, Ages 3–5 Years?</p>
+        <p class="pub-meta">American Association for Pediatric Ophthalmology and Strabismus (AAPOS) International Meeting — <em>San Antonio, TX — March 25, 2012</em></p>
+      </div>
+    </div>
+    <div class="pub">
+      <span class="pub-num">04</span>
+      <div>
+        <p class="pub-title">Antimicrobial Stewardship: Practical Approaches Learning Seminars</p>
+        <p class="pub-meta">Invited seminar series, delivered at three Oregon venues — <em>Lane Community College, Eugene, OR (May 24, 2013); Ambridge Event Center, Portland, OR (March 15, 2013); Salem Conference Center, Salem, OR (March 8, 2013)</em></p>
+      </div>
+    </div>
+    <div class="pub">
+      <span class="pub-num">05</span>
+      <div>
+        <p class="pub-title">Application of Data Enhanced Diagnostics to Improve Rapid Diagnostic Test Performance</p>
+        <p class="pub-meta">Oral presentation, North American Primary Care Research Group (NAPCRG) — <em>San Francisco, CA — November 22, 2020</em></p>
+      </div>
+    </div>
+    <div class="pub">
+      <span class="pub-num">06</span>
+      <div>
+        <p class="pub-title">A US Study of Endometriosis and Adenomyosis: Incidence, Prevalence and Secular Trends in a Population-Based Cohort, 2006–2015</p>
+        <p class="pub-meta">Reed S, Onchee Y, <strong>Arao RF</strong>, et al. — <em>submitted to the 13th World Congress on Endometriosis</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="teaching" class="alt">
+  <div class="wrap">
+    <div class="s-head">
+      <h2>Teaching</h2>
+      <span class="s-note">courses, guest lectures</span>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">01</span>
+      <div>
+        <p class="pub-title">INFO 4670 — Data Analysis and Knowledge Discovery</p>
+        <p class="pub-meta">Instructor of record — <em>University of North Texas — Spring 2022 (Jan 18–May 13, 2022) — 29 students, online</em></p>
+        <p style="font-size:13.5px; color:var(--paper-dim); margin:6px 0 0; max-width:65ch;">
+          Introduces students to data analysis, data mining, text mining, and knowledge discovery — principles,
+          concepts, and practices for approaching data mining tasks using suitable software and analytical tools,
+          covering both the theory and applied methods of data mining and knowledge discovery.
+        </p>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">02</span>
+      <div>
+        <p class="pub-title">Measures of Data Accuracy — Guest Lecture Series on Performance Benchmarks</p>
+        <p class="pub-meta">Group Health Epi 101 — <em>one-week lecture series — November 9, 2015</em></p>
+        <p style="font-size:13.5px; color:var(--paper-dim); margin:6px 0 0; max-width:65ch;">
+          Covered core diagnostic performance metrics — sensitivity, specificity, positive and negative predictive
+          value, confusion matrices, and overall accuracy — as applied to evaluating screening and diagnostic tests.
+        </p>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">03</span>
+      <div>
+        <p class="pub-title">Teaching Assistant — Environmental Health (PHPM 518)</p>
+        <p class="pub-meta">Oregon Health &amp; Science University — <em>Spring 2011</em></p>
+        <p style="font-size:13.5px; color:var(--paper-dim); margin:6px 0 0; max-width:65ch;">
+          Supported course content on environmental epidemiology, including exposure assessment and
+          the methods used to link environmental hazards — air and water quality, occupational exposures —
+          to population-level health outcomes.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dev-awards">
+  <div class="wrap">
+    <div class="s-head">
+      <h2>Professional Development &amp; Awards</h2>
+      <span class="s-note">trainings, competitions, guest lectures</span>
+    </div>
+    <div class="pub">
+      <span class="pub-num">01</span>
+      <div>
+        <p class="pub-title">PhD Fellowship in Biosimilar Development — U.S. Food &amp; Drug Administration</p>
+        <p class="pub-meta">Applied statistical equivalence testing and real-world evidence synthesis to support regulatory evaluation of biosimilar interchangeability — <em>May 2023 – May 2024</em></p>
+      </div>
+    </div>
+    <div class="pub">
+      <span class="pub-num">02</span>
+      <div>
+        <p class="pub-title">Alexa Skill Building 101 — Runner-Up, "Alexa Magic Mirror"</p>
+        <p class="pub-meta">Participated in developing and testing an Alexa skill for Amazon Echo/Tap — <em>Seattle, WA — June 18, 2016</em></p>
+      </div>
+    </div>
+    <div class="pub">
+      <span class="pub-num">03</span>
+      <div>
+        <p class="pub-title">World's Largest Arduino Maker Challenge 2016 — Phase I Winner</p>
+        <p class="pub-meta">Project: MORA — Mobile Robotic Arm — <em>Award received February 8, 2016</em></p>
+      </div>
+    </div>
+    <div class="pub">
+      <span class="pub-num">04</span>
+      <div>
+        <p class="pub-title">Spartan Trifecta</p>
+        <p class="pub-meta">Completed the Sprint, Super, and Beast obstacle course races within the same season — <em>August 14, 2022</em></p>
+      </div>
+    </div>
+
+    <p class="s-note" style="margin-top:28px; margin-bottom:14px;">Certifications</p>
+    <div class="tags" style="margin-top:0;">
+      <span class="tag" data-mode="industry">AWS Certified Machine Learning – Specialty</span>
+      <span class="tag" data-mode="industry">Python Institute — Certified Associate (2019)</span>
+      <span class="tag" data-mode="academic">Springboard Data Science: Python (2018)</span>
+    </div>
+  </div>
+</section>
+
+<section id="other-writing" class="alt">
+  <div class="wrap">
+    <div class="s-head">
+      <h2>Also Published</h2>
+      <span class="s-note">self-published, outside my research area</span>
+    </div>
+    <p class="lead" style="margin-bottom:24px;">
+      Independently published books, unrelated to my academic work — included here for a fuller picture of who I am.
+    </p>
+
+    <div class="pub">
+      <span class="pub-num">01</span>
+      <div>
+        <p class="pub-title">The Road to Emotional and Spiritual Healing: An Ultimate Guide to Profound Purpose, Authentic Happiness, Healthy Relationships, and Overcoming Past Traumas</p>
+        <p class="pub-meta">Robert F. Arao — <em>self-published, 2024</em></p>
+        <div class="pub-links">
+          <a href="https://www.amazon.com/dp/B0D93Z45XH" target="_blank" rel="noopener">Amazon</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">02</span>
+      <div>
+        <p class="pub-title">The Hitchhiker's Guide to the Paranormal: Gaining Perspective of Unearthly Encounters</p>
+        <p class="pub-meta">Robert Arao — <em>self-published, 2024</em></p>
+        <div class="pub-links">
+          <a href="https://www.amazon.com/dp/B0D7QDM38V" target="_blank" rel="noopener">Amazon</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub">
+      <span class="pub-num">03</span>
+      <div>
+        <p class="pub-title">The Essential Washington State Travel Guide: Hikes, Fishing, Eats, Haunted Locations, Seasonal Activities, and More</p>
+        <p class="pub-meta">Ghat Joyall — <em>self-published, 2024</em></p>
+        <div class="pub-links">
+          <a href="https://www.amazon.com/dp/B0DDJRTD5H" target="_blank" rel="noopener">Amazon</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="code">
+  <div class="wrap">
+    <div class="s-head">
+      <h2>Code &amp; Apps</h2>
+      <span class="s-note">python + R</span>
+    </div>
+
+    <div class="tags" style="margin-top:0; margin-bottom:24px;">
+      <span class="tag" data-mode="industry">python</span>
+      <span class="tag" data-mode="industry">github</span>
+      <span class="tag" data-mode="academic">R / tidyverse</span>
+      <span class="tag" data-mode="academic">shiny</span>
+    </div>
+
+    <div class="cv-box" style="margin-bottom:24px;">
+      <p style="margin:0; color:var(--paper-dim); font-size:14px; max-width:44ch;">
+        Python code, pipelines, and analysis — organized and pinned on GitHub.
+      </p>
+      <a class="btn" href="https://github.com/robarao" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+    <div class="cv-box" style="margin-bottom:32px;">
+      <p style="margin:0; color:var(--paper-dim); font-size:14px; max-width:44ch;">
+        Interactive R / Shiny apps — explore the data yourself, no setup required.
+      </p>
+      <a class="btn" id="shinyOpenNewTab" href="https://robertarao.shinyapps.io/power-calculator/" target="_blank" rel="noopener">Open in new tab ↗</a>
+    </div>
+
+    <!--
+      Live embed with a tab switcher. To add another app: add a button to shiny-tabs
+      with a data-src pointing to the new shinyapps.io URL, following the same pattern.
+      Free-tier apps sleep when idle, so the first load after switching may take a few seconds.
+    -->
+    <div style="border:1px solid var(--line-strong); border-radius:10px; overflow:hidden; margin-bottom:32px;">
+      <div id="shinyTabs" style="display:flex; flex-wrap:wrap; gap:0; background:var(--ink-soft); border-bottom:1px solid var(--line-strong); font-family:var(--font-mono); font-size:12px;">
+        <button type="button" class="shiny-tab-btn" data-src="https://robertarao.shinyapps.io/power-calculator/" data-label="Power & Sample Size Calculator"
+          style="flex:1; min-width:150px; padding:12px 14px; background:var(--ink); color:var(--paper); border:none; border-right:1px solid var(--line-strong); cursor:pointer; text-align:left;">
+          ▸ Power &amp; Sample Size Calculator
+        </button>
+        <button type="button" class="shiny-tab-btn" data-src="https://robertarao.shinyapps.io/feasibility-dashboard/" data-label="RWD Feasibility Dashboard"
+          style="flex:1; min-width:150px; padding:12px 14px; background:transparent; color:var(--paper-dim); border:none; border-right:1px solid var(--line-strong); cursor:pointer; text-align:left;">
+          ▸ RWD Feasibility Dashboard
+        </button>
+        <button type="button" class="shiny-tab-btn" data-src="https://robertarao.shinyapps.io/medical-image-analyzer/" data-label="Medical Image Analyzer"
+          style="flex:1; min-width:150px; padding:12px 14px; background:transparent; color:var(--paper-dim); border:none; border-right:1px solid var(--line-strong); cursor:pointer; text-align:left;">
+          ▸ Medical Image Analyzer
+        </button>
+        <button type="button" class="shiny-tab-btn" data-src="https://robertarao.shinyapps.io/insurance-claims-explorer/" data-label="Insurance Claims Explorer"
+          style="flex:1; min-width:150px; padding:12px 14px; background:transparent; color:var(--paper-dim); border:none; cursor:pointer; text-align:left;">
+          ▸ Insurance Claims Explorer
+        </button>
+      </div>
+      <iframe
+        id="shinyFrame"
+        src="https://robertarao.shinyapps.io/power-calculator/"
+        title="Interactive Shiny app"
+        style="width:100%; height:650px; border:none; display:block;"
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <script>
+      (function(){
+        var buttons = document.querySelectorAll('.shiny-tab-btn');
+        var frame = document.getElementById('shinyFrame');
+        var openLink = document.getElementById('shinyOpenNewTab');
+        buttons.forEach(function(btn){
+          btn.addEventListener('click', function(){
+            var src = btn.getAttribute('data-src');
+            frame.src = src;
+            openLink.href = src;
+            buttons.forEach(function(b){
+              b.style.background = 'transparent';
+              b.style.color = 'var(--paper-dim)';
+            });
+            btn.style.background = 'var(--ink)';
+            btn.style.color = 'var(--paper)';
+          });
+        });
+      })();
+    </script>
+
+    <div class="grid">
+      <div class="card">
+        <!--
+          Requires moraa-photo.jpg (poster), moraa-clip1.mp4, and moraa-clip2.mp4 in the same folder as index.html.
+          No autoplay/mute here on purpose — MORA is voice-controlled, so the sound is the point.
+          Visitor clicks play and hears the voice command trigger the movement.
+        -->
+        <video id="moraaVideo" class="card-vid" controls playsinline preload="metadata"
+          poster="moraa-photo.jpg" src="moraa-clip1.mp4"
+          style="background:#000;">
+        </video>
+        <div style="display:flex; gap:6px; margin:-6px 0 14px;">
+          <button type="button" class="moraa-clip-btn" data-src="moraa-clip1.mp4"
+            style="flex:1; padding:6px 8px; background:var(--ink); color:var(--paper); border:1px solid var(--line-strong); border-radius:6px; font-family:var(--font-mono); font-size:11px; cursor:pointer;">
+            ▸ Clip 1 — Power Glove Control
+          </button>
+          <button type="button" class="moraa-clip-btn" data-src="moraa-clip2.mp4"
+            style="flex:1; padding:6px 8px; background:transparent; color:var(--paper-dim); border:1px solid var(--line-strong); border-radius:6px; font-family:var(--font-mono); font-size:11px; cursor:pointer;">
+            ▸ Clip 2
+          </button>
+        </div>
+        <script>
+          (function(){
+            var vid = document.getElementById('moraaVideo');
+            var btns = document.querySelectorAll('.moraa-clip-btn');
+            btns.forEach(function(btn){
+              btn.addEventListener('click', function(){
+                vid.src = btn.getAttribute('data-src');
+                vid.load();
+                btns.forEach(function(b){ b.style.background = 'transparent'; b.style.color = 'var(--paper-dim)'; });
+                btn.style.background = 'var(--ink)'; btn.style.color = 'var(--paper)';
+              });
+            });
+          })();
+        </script>
+        <h3>MORA — Mobile Robotic Arm</h3>
+        <p>A Bluetooth-controlled, <strong>voice-controlled</strong> mobile robotic arm built on Arduino. Phase I winner, World's Largest Arduino Maker Challenge 2016.</p>
+        <div class="pub-links">
+          <a href="#">Repo</a>
+        </div>
+      </div>
+      <div class="card">
+        <video class="card-vid" src="gauge-demo.mp4" poster="gauge-final.jpg" autoplay muted loop playsinline></video>
+
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px;">
+          <div class="gauge-thumb-click" data-full="gauge-brain.jpg" style="flex:1; min-width:75px; position:relative; cursor:pointer;">
+            <img src="gauge-thumb-brain.jpg" style="width:100%; display:block; border-radius:4px;">
+          </div>
+          <div class="gauge-thumb-click" data-full="gauge-structure.jpg" style="flex:1; min-width:75px; position:relative; cursor:pointer;">
+            <img src="gauge-thumb-structure.jpg" style="width:100%; display:block; border-radius:4px;">
+          </div>
+          <div class="gauge-thumb-click" data-full="gauge-final.jpg" style="flex:1; min-width:75px; position:relative; cursor:pointer;">
+            <img src="gauge-thumb-front.jpg" style="width:100%; display:block; border-radius:4px;">
+          </div>
+          <div class="gauge-thumb-click" data-full="gauge-thumb-back.jpg" style="flex:1; min-width:75px; position:relative; cursor:pointer;">
+            <img src="gauge-thumb-back.jpg" style="width:100%; display:block; border-radius:4px;">
+          </div>
+        </div>
+
+        <!-- Lightbox overlay: click any thumbnail above to view full-size; click backdrop or Esc to close -->
+        <div id="gaugeLightbox" style="display:none; position:fixed; inset:0; background:rgba(10,12,16,0.92); z-index:1000; align-items:center; justify-content:center; padding:32px; cursor:zoom-out;">
+          <img id="gaugeLightboxImg" src="" style="max-width:90vw; max-height:88vh; border-radius:6px; box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+          <button type="button" id="gaugeLightboxClose" aria-label="Close" style="position:absolute; top:20px; right:28px; background:none; border:none; color:var(--paper); font-size:32px; cursor:pointer; line-height:1;">&times;</button>
+        </div>
+        <script>
+          (function(){
+            var box = document.getElementById('gaugeLightbox');
+            var img = document.getElementById('gaugeLightboxImg');
+            var closeBtn = document.getElementById('gaugeLightboxClose');
+            document.querySelectorAll('.gauge-thumb-click').forEach(function(el){
+              el.addEventListener('click', function(){
+                img.src = el.getAttribute('data-full');
+                box.style.display = 'flex';
+              });
+            });
+            function close(){ box.style.display = 'none'; img.src = ''; }
+            box.addEventListener('click', function(e){ if(e.target === box) close(); });
+            closeBtn.addEventListener('click', close);
+            document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+          })();
+        </script>
+
+        <h3>Gauge — a biped walking robot</h3>
+        <p>A two-legged walking robot built on an Arduino Mega, with servo-actuated legs, spring-loaded joints for shock absorption, and an ultrasonic sensor for obstacle detection.</p>
+        <div class="pub-links">
+          <a href="#">Repo</a>
+          <a href="#">Demo</a>
+        </div>
+      </div>
+      <div class="card">
+        <!--
+          Requires magicmirror-poster.jpg and magicmirror-clip.mp4 in the same folder as index.html.
+          No autoplay/mute — this demos Alexa voice control, so the sound is the point.
+        -->
+        <video class="card-vid" controls playsinline preload="metadata"
+          poster="magicmirror-poster.jpg" src="magicmirror-clip.mp4"
+          style="background:#000;">
+        </video>
+        <h3>Alexa Magic Mirror</h3>
+        <p>A smart mirror with an integrated, <strong>voice-controlled</strong> Alexa skill — runner-up, Alexa Skill Building 101, Seattle, WA (2016).</p>
+        <div class="pub-links">
+          <a href="#">Repo</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Alexa Skills — "Professor Shark" &amp; "Water Facts"</h3>
+        <p>Two custom Alexa skills built as follow-on projects from Alexa Skill Building 101 — "Professor Shark" shares facts about sharks, and "Water Facts" covers the unique chemical properties of water.</p>
+        <div class="pub-links">
+          <a href="#">Repo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cv" class="highlight">
+  <div class="wrap">
+    <div class="s-head"><h2>CV</h2></div>
+    <div class="cv-box">
+      <p style="margin:0; color:var(--paper-dim); font-size:14px; max-width:44ch;">
+        Full CV — education, publications, talks, teaching, awards, and technical skills.
+      </p>
+      <a class="btn" href="Robert_Arao_CV.docx">Download CV (.docx) ↓</a>
+    </div>
+  </div>
+</section>
+
+<footer id="contact" class="deep">
+  <div class="wrap">
+    <h2>Get in touch</h2>
+    <p class="lead">Open to biostatistician, data scientist, and research faculty roles — in academia or industry.</p>
+    <div class="contact-row">
+      <a href="mailto:arao2012@alumni.ohsu.edu">arao2012@alumni.ohsu.edu</a>
+      <a href="https://scholar.google.com/citations?hl=en&amp;user=I-EKBqkAAAAJ">Google Scholar</a>
+      <a href="https://orcid.org/0000-0002-4935-338X">ORCID</a>
+      <a href="https://github.com/robarao">GitHub</a>
+      <a href="https://public.tableau.com/app/profile/robert.arao5352/vizzes">Tableau</a>
+      <a href="https://www.linkedin.com/in/robert-arao">LinkedIn</a>
+    </div>
+    <p class="fine">Member, American Statistical Association · Peer reviewer for Maternal &amp; Child Health Journal, Journal of Perinatology, and Vaccine</p>
+    <p class="fine">last updated July 2026 — built as a static site, hosted on GitHub Pages</p>
+  </div>
+</footer>
+
+<script>
+  const body = document.body;
+  const toggle = document.getElementById('modeToggle');
+
+  function setMode(mode){
+    body.setAttribute('data-mode', mode);
+    document.querySelectorAll('[data-academic][data-industry]').forEach(el => {
+      el.textContent = mode === 'academic' ? el.getAttribute('data-academic') : el.getAttribute('data-industry');
+    });
+    toggle.setAttribute('aria-pressed', mode === 'industry');
+  }
+
+  toggle.addEventListener('click', () => {
+    setMode(body.getAttribute('data-mode') === 'academic' ? 'industry' : 'academic');
+  });
+  toggle.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      toggle.click();
+    }
+  });
+</script>
+
+</body>
+</html>
